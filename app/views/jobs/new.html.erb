@@ -1,0 +1,19 @@
+<div class="container jobs-new">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <%= form_with model: @job do |f| %>
+        <div class="form-group">
+          <label for="exampleInputTitle">募集タイトル</label>
+          <%= f.text_field :title, class: "form-control", placeholder: "募集タイトルを入力してください" %>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputDetail">募集内容詳細</label>
+          <%= f.text_area :content, class: "form-control", placeholder: "例:Railsを教えてくれる人を募集します！" %>
+        </div>
+        <div class="intro-button text-center">
+          <%= f.submit "募集を作る", class: "btn btn-xl" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

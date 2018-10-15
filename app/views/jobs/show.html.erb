@@ -1,0 +1,83 @@
+<!-- ==========ここから追加する========== -->
+<% content_for :ogp do %>
+  <meta property="og:title" content="<%= @job.title %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/jobs/<%= @job.id %>" />
+  <meta property="og:image" content=<%= "#{root_url}#{@job.image_url}" %> />
+  <meta property="og:site_name"  content="Techpit_Job" />
+  <meta property="og:description" content="<%= @job.content %>" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@techpit_jp" />
+<% end %>
+<!-- ==========ここまで追加する========== -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="job-show">
+        <ul class="list-group">
+          <li class="list-group">
+            <div class="card">
+              <img class="card-img-bottom" src="/<%= @job.image_url %>" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title"><%= @job.title %></h5>
+                <p class="card-text"><%= @job.content %></p>
+                <!-- ② -->
+                <!-- strftimeメソッドは日付データのフォーマット -->
+                <p class="card-text"><small class="text-muted"><%= @job.created_at.strftime('%Y/%m/%d %H:%M')  %></small></p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="job-show-share">
+        <div class="social text-center">
+          <a href="https://twitter.com/intent/tweet?url=http://hama34san" rel="nofollow" class="btn btn-xl btn-tw" target="_blank">twiterに投稿</a>
+        </div>
+        <p class="share-url"><a onclick="clipURL()" class="url-text">URL</a><i class="far fa-copy"></i></p>
+      </div>
+      <!-- ③：ログインしている場合 -->
+      <% if user_signed_in? %>
+        <!-- ④：自分の作成した求人だった場合 -->
+        <% if @job.user_id == current_user.id %>
+          <div class="job-show-comment">
+            <h2 class="job-list-title">応募一覧</h2>
+            <ul class="list-group">
+
+<%# ========= 後ほど応募情報を表示するところ ========= %>
+
+            </ul>
+          </div>
+        <% else -%><!-- ④：自分の作成した求人でない場合 -->
+        <!-- ⑤すでに応募している場合 -->
+        <% if current_user.entries.where(job_id: @job.id).present? %>
+          <div class="intro-button text-center">
+            <a href="javascript:void(0)" class="btn btn-xl">すでに応募しています</a>
+          </div>
+          <% else %><!-- ⑤まだ応募していない場合 -->
+
+<%# ========== 後ほど応募フォームを表示するところ ========== %>
+
+          <% end %><!-- ⑤ -->
+        <% end %><!-- ④ -->
+
+      <% else %><!-- ③：ログインしていない場合 -->
+        <div class="show-login text-center">
+          <div class="intro-button text-center">
+            <a href="/users/sign_in" class="btn btn-xl">応募する</a>
+          </div>
+          <p>応募するには会員登録・ログインの必要がございます</p>
+        </div>
+        <div class="job-show-comment">
+          <h2 class="job-list-title">ご応募後の流れ</h2>
+          <p>1. 応募するとアカウント情報が相手に届きます。</p>
+          <p>2. 必ず連絡が来るわけではありません。</p>
+          <p>3. 募集者がマッチしたと思った場合メッセージを送ります。</p>
+          <p>4. メッセージは連携SNSで届きます。</p>
+          <p>※ Twitterで応募した場合は「」で「すべてのユーザーからダイレクトメッセージを受信する」 にチェックを入れてください。</p>
+          </ul>
+        </div>
+      <% end %><!-- ③ -->
+    </div>
+  </div>
+</div>
