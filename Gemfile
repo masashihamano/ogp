@@ -8,7 +8,7 @@ end
 
 
 gem 'rails', '~> 5.1.6'
-gem 'sqlite3'
+
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -28,13 +28,15 @@ gem 'jquery-rails'
 
 group :development, :test do
 
+  gem 'sqlite3'
+
 # デバッグで調べる機能
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
 
-  gem 'sqlite3'
+
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
@@ -51,7 +53,8 @@ end
 
 
 group :production do
-  gem 'pg', '0.20.0'
+  gem 'pg', '~> 0.20.0'
 end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
