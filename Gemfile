@@ -16,11 +16,24 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
-# gem 'bcrypt', '~> 3.1.7'
+# 会員登録の簡易システム
+gem 'devise'
+
+# ブートストラップ
+gem 'bootstrap', '~> 4.1.3'
+gem 'jquery-rails'
+
 
 
 
 group :development, :test do
+
+# デバッグで調べる機能
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-byebug'
+  gem 'pry-stack_explorer'
+
   gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
