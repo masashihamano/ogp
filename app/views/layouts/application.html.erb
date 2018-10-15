@@ -6,6 +6,8 @@
 
     <!-- ==========レスポンシブ対応========== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= yield :ogp %><!-- この一行を追加 -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /><!-- 文字コードの指定-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- ==========ここまで========== -->
 
@@ -18,7 +20,7 @@
 <!-- ヘッダー -->
     <nav class="navbar navbar-expand-lg bg-2 navbar-light header">
       <div class="container">
-        <a class="navbar-brand" href="/jobs">Techpit Job</a>
+        <a class="navbar-brand" href="/jobs">Open Graph protocol</a>
         <% if user_signed_in? %>
         <div class="my-2 my-lg-0">
           <%= link_to 'ログアウト', destroy_user_session_path, class: "no-text-decoration", method: :delete %>

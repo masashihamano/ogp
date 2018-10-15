@@ -23,6 +23,9 @@ gem 'devise'
 gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 
+# 画像処理
+gem 'rmagick'
+
 
 
 
