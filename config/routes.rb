@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
+  devise_for :users
 
   root 'homes#index'
-  resources :jobs, only: [:index, :new, :create, :show]
 
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+# 入れ子関係にすると/jobs/:job_id/配下に/entriesというパスが作成されるようになる
+  resources :jobs, only: [:index, :new, :create, :show] do
+    resources :entries
+  end
+
+
+
 end

@@ -1,2 +1,63 @@
-<h1>Jobs#index</h1>
-<p>Find me in app/views/jobs/index.html.erb</p>
+<header class="masthead">
+  <div class="container">
+    <div class="intro-text">
+      <h2 class="intro-lead-in h2">SNSでカンタン募集しよう！</h2>
+      <div class="intro-button">
+        <%= link_to '今すぐ始める', new_job_path , class: "btn btn-xl" %>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-1">
+      <div class="job-show-left">
+        <h2 class="job-list-title">
+
+        <%= current_user.email %>さんの募集一覧</h2>
+        <ul class="list-group">
+          <!-- ①： 仕事一覧の表示 -->
+          <% @jobs.each do |job| %>
+            <%= link_to job_path(job), class: "no-text-decoration" do %>
+              <li class="list-group">
+                <div class="card">
+                  <img class="card-img-bottom" src="/<%= job.image_url %>" alt="">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%= job.title %></h5>
+                    <p class="card-text">
+                      <%= job.content %></p>
+                    <p class="card-text"><small class="text-muted">
+                      <%= job.created_at.strftime('%Y/%m/%d %H:%M') %></small></p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4 ">
+      <div class="job-show-left">
+        <h2 class="entry-list-title">新着応募</h2>
+        <ul class="list-group">
+
+          <% @entries.each do |entry| %>
+          <!-- ②：自分の作成した募集へのエントリーの場合 -->
+            <% if entry.job.user_id == current_user.id %>
+              <li class="list-group-item">
+                <div><%= entry.job.user.email %><small class="text-muted"><%= entry.job.created_at.strftime('%Y/%m/%d %H:%M') %></small>
+                </div>
+                <div class="list-group-item-comment">
+                  <%= entry.messages %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

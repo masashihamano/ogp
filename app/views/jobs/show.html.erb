@@ -44,7 +44,16 @@
             <h2 class="job-list-title">応募一覧</h2>
             <ul class="list-group">
 
-<%# ========= 後ほど応募情報を表示するところ ========= %>
+<%# ========= 応募情報を表示するところ ========= %>
+            <% @entries.each do |entry| %>
+              <li class="list-group-item">
+                <div><%= entry.user.email %><small class="text-muted"><%= entry.created_at.strftime('%Y/%m/%d %H:%M') %></small>
+                </div>
+                <div class="list-group-item-comment">
+                  <%= entry.messages %>
+                </div>
+              </li>
+            <% end %>
 
             </ul>
           </div>
@@ -56,28 +65,39 @@
           </div>
           <% else %><!-- ⑤まだ応募していない場合 -->
 
-<%# ========== 後ほど応募フォームを表示するところ ========== %>
+<%# ========== 応募フォームを表示するところ ========== %>
+          <!-- jobに対してentriesがネストされている場合はform_withに二つの引数を渡す -->
+          <%= form_with model: [@job, @job.entries.new] do |f| %>
+            <%= f.hidden_field :job_id, value: @job.id %>
+            <div class="form-group form-message">
+              <label for="exampleInputMessage">メッセージ（任意）</label>
+              <%= f.text_area :messages , class: "form-control", placeholder: "例：興味あります。よければDMでご連絡お待ちしております。" %>
+            </div>
+            <div class="intro-button text-center">
+              <%= f.submit "応募する", class: "btn btn-xl" %>
+            </div>
+          <% end %>
 
-          <% end %><!-- ⑤ -->
-        <% end %><!-- ④ -->
+        <% end %><!-- ⑤ -->
+      <% end %><!-- ④ -->
 
-      <% else %><!-- ③：ログインしていない場合 -->
-        <div class="show-login text-center">
-          <div class="intro-button text-center">
-            <a href="/users/sign_in" class="btn btn-xl">応募する</a>
-          </div>
-          <p>応募するには会員登録・ログインの必要がございます</p>
+    <% else %><!-- ③：ログインしていない場合 -->
+      <div class="show-login text-center">
+        <div class="intro-button text-center">
+          <a href="/users/sign_in" class="btn btn-xl">応募する</a>
         </div>
-        <div class="job-show-comment">
-          <h2 class="job-list-title">ご応募後の流れ</h2>
-          <p>1. 応募するとアカウント情報が相手に届きます。</p>
-          <p>2. 必ず連絡が来るわけではありません。</p>
-          <p>3. 募集者がマッチしたと思った場合メッセージを送ります。</p>
-          <p>4. メッセージは連携SNSで届きます。</p>
-          <p>※ Twitterで応募した場合は「」で「すべてのユーザーからダイレクトメッセージを受信する」 にチェックを入れてください。</p>
-          </ul>
-        </div>
-      <% end %><!-- ③ -->
+        <p>応募するには会員登録・ログインの必要がございます</p>
+      </div>
+      <div class="job-show-comment">
+        <h2 class="job-list-title">ご応募後の流れ</h2>
+        <p>1. 応募するとアカウント情報が相手に届きます。</p>
+        <p>2. 必ず連絡が来るわけではありません。</p>
+        <p>3. 募集者がマッチしたと思った場合メッセージを送ります。</p>
+        <p>4. メッセージは連携SNSで届きます。</p>
+        <p>※ Twitterで応募した場合は「」で「すべてのユーザーからダイレクトメッセージを受信する」 にチェックを入れてください。</p>
+        </ul>
+      </div>
+    <% end %><!-- ③ -->
     </div>
   </div>
 </div>
