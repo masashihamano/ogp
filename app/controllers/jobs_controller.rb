@@ -30,7 +30,7 @@ class JobsController < ApplicationController
     draw.annotate(image, 0, 0, 0, -120, title) do
 
       #日本語対応可能なフォントにする
-      self.font = 'ArialUnicode'
+      self.font = 'app/assets/NotoSansJP-Bold.otf'
 
       #フォントの塗りつぶし色
       self.fill = '#fff'
