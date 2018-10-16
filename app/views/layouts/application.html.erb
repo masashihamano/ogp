@@ -35,5 +35,31 @@
     <p class="alert"><%= alert %></p>
 
     <%= yield %>
+
+
+<!-- URLのコピー機能 -->
+    <script>
+    //url-texを現在のURL（document.URL）に変更する
+      $('.url-text').text(document.url);
+      //clipURL関数の定義（urlをコピーする機能）
+      function clipURL() {
+        //currentURLのIDを選択
+        $('#currentURL').select();
+        //選択しているテキストをクリップボードにコピーする
+        document.execCommand('copy');
+        //現在のcurrentURLのIDを削除
+        $('#currentURL').remove();
+        //アラートを表示する
+        alert("URLをコピーしました。");
+      }
+
+      //textにcard-titleクラスのテキストを代入する
+      var text = $('.card-title').text();
+      //twitterurlのシェア用urlを作成してtwitterurlに挿入
+      var twitterurl = "https://twitter.com/intent/tweet?url=" + document.URL + "&text=" + text + "&hashtags=#OGP";
+      //btn-twクラスのリンクをtwitterurlに変更する
+      $('.btn-tw').attr('href',twitterurl);
+    </script>
+
   </body>
 </html>
